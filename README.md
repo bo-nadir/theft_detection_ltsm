@@ -31,7 +31,6 @@ pip install torch torchvision ultralytics opencv-python numpy scikit-learn
 
 ```
 
-*(Note: I removed `exit 0` from the setup commands above, as running `exit 0` in your terminal would immediately close your terminal window after installing the packages!)*
 
 ## Usage
 
