@@ -24,75 +24,94 @@ Pickle_files/
 
 ## Setup
 
-```bash
+```
 python -m venv venv
 venv\Scripts\activate
 pip install torch torchvision ultralytics opencv-python numpy scikit-learn
+
 ```
+
+*(Note: I removed `exit 0` from the setup commands above, as running `exit 0` in your terminal would immediately close your terminal window after installing the packages!)*
 
 ## Usage
 
 Run the scripts in this exact order:
-1. Generate labels for the normal training videos
-```bash
 
-python create_train_labels.py
-```
-Creates Pickle_files/GT_normal/ with 104 .npy files of zeros.
+1. **Generate labels for the normal training videos**
 
-2. Split the dataset (stratified by video)
-```bash
+   ```
+   python create_train_labels.py
+   
+   ```
 
-python split_dataset.py
-```
-Creates dataset_splits.txt with:
+   Creates `Pickle_files/GT_normal/` with 104 `.npy` files of zeros.
 
-    Train: 105 videos (28 theft, 77 normal)
+2. **Split the dataset (stratified by video)**
 
-    Validation: 22 videos (6 theft, 16 normal)
+   ```
+   python split_dataset.py
+   
+   ```
 
-    Test: 24 videos (7 theft, 17 normal)
+   Creates `dataset_splits.txt` with:
 
-3. Train the model
-```bash
+   * Train: 105 videos (28 theft, 77 normal)
 
-python train.py
-```
-Trains the LSTM with early stopping (best model saved from the epoch with the lowest validation loss) and a weighted loss function (pos_weight) to handle class imbalance. Saves poselift_final_model.pth.
+   * Validation: 22 videos (6 theft, 16 normal)
 
-4. Evaluate on the held-out test set
-```bash
+   * Test: 24 videos (7 theft, 17 normal)
 
-python evaluate.py
-```
-Reports Accuracy, Precision, Recall, F1-Score, AUC-ROC, and the Confusion Matrix.
+3. **Train the model**
 
-5. Run inference on a video
-```bash
+   ```
+   python train.py
+   
+   ```
 
-python inference.py
-```
-Place a video named test_video.mp4 in the project folder. The output is saved as final_output.mp4, with green boxes (normal) and red boxes (theft) overlaid on each person.
+   Trains the LSTM with early stopping (best model saved from the epoch with the lowest validation loss) and a weighted loss function (`pos_weight`) to handle class imbalance. Saves `poselift_final_model.pth`.
 
+4. **Evaluate on the held-out test set**
 
-**Results**
-Accuracy	92.14%
-Recall	82.91%
-Precision	22.81%
-F1-Score	0.3577
-AUC-ROC	0.8948
+   ```
+   python evaluate.py
+   
+   ```
+
+   Reports Accuracy, Precision, Recall, F1-Score, AUC-ROC, and the Confusion Matrix.
+
+5. **Run inference on a video**
+
+   ```
+   python inference.py
+   
+   ```
+
+   Place a video named `test_video.mp4` in the project folder. The output is saved as `final_output.mp4`, with green boxes (normal) and red boxes (theft) overlaid on each person.
+
+## Results
+
+| Metric | Value | 
+| ----- | ----- | 
+| **Accuracy** | 92.14% | 
+| **Recall** | 82.91% | 
+| **Precision** | 22.81% | 
+| **F1-Score** | 0.3577 | 
+| **AUC-ROC** | 0.8948 | 
 
 The AUC-ROC of 0.8948 indicates strong discriminative ability. The low precision is a deliberate trade-off from the weighted loss function, which prioritizes catching thefts over avoiding false alarms.
+
 ## Notes
-The model runs entirely offline on a CPU. No GPU or internet connection is required.
-The Pickle_files/ folder, venv/, and .pth model weights are excluded from this repository via 
-.gitignore.
-To reproduce the results, download the PoseLift dataset from the official GitHub link above.
+
+* The model runs entirely offline on a CPU. No GPU or internet connection is required.
+
+* The `Pickle_files/` folder, `venv/`, and `.pth` model weights are excluded from this repository via `.gitignore`.
+
+* To reproduce the results, download the PoseLift dataset from the official GitHub link above.
 
 ## Citation
 
 If you use this work, please cite the PoseLift paper:
-bibtex
+
 ```
 @article{rashvand2025exploringposebasedanomalydetection,
   title={Exploring Pose-Based Anomaly Detection for Retail Security: A Real-World Shoplifting Dataset and Benchmark},
@@ -102,4 +121,5 @@ bibtex
   archivePrefix={arXiv},
   primaryClass={cs.CV}
 }
+
 ```
