@@ -59,20 +59,23 @@ Creates dataset_splits.txt with:
 python train.py
 ```
 Trains the LSTM with early stopping (best model saved from the epoch with the lowest validation loss) and a weighted loss function (pos_weight) to handle class imbalance. Saves poselift_final_model.pth.
+
 4. Evaluate on the held-out test set
 ```bash
 
 python evaluate.py
 ```
 Reports Accuracy, Precision, Recall, F1-Score, AUC-ROC, and the Confusion Matrix.
+
 5. Run inference on a video
 ```bash
 
 python inference.py
 ```
 Place a video named test_video.mp4 in the project folder. The output is saved as final_output.mp4, with green boxes (normal) and red boxes (theft) overlaid on each person.
-Results
-Metric	Value
+
+
+**Results**
 Accuracy	92.14%
 Recall	82.91%
 Precision	22.81%
@@ -81,12 +84,10 @@ AUC-ROC	0.8948
 
 The AUC-ROC of 0.8948 indicates strong discriminative ability. The low precision is a deliberate trade-off from the weighted loss function, which prioritizes catching thefts over avoiding false alarms.
 ## Notes
-
-    The model runs entirely offline on a CPU. No GPU or internet connection is required.
-
-    The Pickle_files/ folder, venv/, and .pth model weights are excluded from this repository via .gitignore.
-
-    To reproduce the results, download the PoseLift dataset from the official GitHub link above.
+The model runs entirely offline on a CPU. No GPU or internet connection is required.
+The Pickle_files/ folder, venv/, and .pth model weights are excluded from this repository via 
+.gitignore.
+To reproduce the results, download the PoseLift dataset from the official GitHub link above.
 
 ## Citation
 
