@@ -28,22 +28,23 @@ Pickle_files/
 python -m venv venv
 venv\Scripts\activate
 pip install torch torchvision ultralytics opencv-python numpy scikit-learn
+```
 
-
-Usage
+## Usage
 
 Run the scripts in this exact order:
 1. Generate labels for the normal training videos
-bash
+```bash
 
 python create_train_labels.py
-
+```
 Creates Pickle_files/GT_normal/ with 104 .npy files of zeros.
+
 2. Split the dataset (stratified by video)
-bash
+```bash
 
 python split_dataset.py
-
+```
 Creates dataset_splits.txt with:
 
     Train: 105 videos (28 theft, 77 normal)
@@ -53,22 +54,22 @@ Creates dataset_splits.txt with:
     Test: 24 videos (7 theft, 17 normal)
 
 3. Train the model
-bash
+```bash
 
 python train.py
-
+```
 Trains the LSTM with early stopping (best model saved from the epoch with the lowest validation loss) and a weighted loss function (pos_weight) to handle class imbalance. Saves poselift_final_model.pth.
 4. Evaluate on the held-out test set
-bash
+```bash
 
 python evaluate.py
-
+```
 Reports Accuracy, Precision, Recall, F1-Score, AUC-ROC, and the Confusion Matrix.
 5. Run inference on a video
-bash
+```bash
 
 python inference.py
-
+```
 Place a video named test_video.mp4 in the project folder. The output is saved as final_output.mp4, with green boxes (normal) and red boxes (theft) overlaid on each person.
 Results
 Metric	Value
@@ -79,7 +80,7 @@ F1-Score	0.3577
 AUC-ROC	0.8948
 
 The AUC-ROC of 0.8948 indicates strong discriminative ability. The low precision is a deliberate trade-off from the weighted loss function, which prioritizes catching thefts over avoiding false alarms.
-Notes
+## Notes
 
     The model runs entirely offline on a CPU. No GPU or internet connection is required.
 
@@ -87,11 +88,11 @@ Notes
 
     To reproduce the results, download the PoseLift dataset from the official GitHub link above.
 
-Citation
+## Citation
 
 If you use this work, please cite the PoseLift paper:
 bibtex
-
+```
 @article{rashvand2025exploringposebasedanomalydetection,
   title={Exploring Pose-Based Anomaly Detection for Retail Security: A Real-World Shoplifting Dataset and Benchmark},
   author={Narges Rashvand and Ghazal Alinezhad Noghre and Armin Danesh Pazho and Shanle Yao and Hamed Tabkhi},
@@ -100,3 +101,4 @@ bibtex
   archivePrefix={arXiv},
   primaryClass={cs.CV}
 }
+```
