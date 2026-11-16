@@ -127,7 +127,7 @@ print(f"pos_weight: {pos_weight.item():.2f}")
 criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
 optimizer = optim.Adam(model.parameters(), lr=0.0001)
 
-# --- TRAINING WITH EARLY STOPPING ---
+# TRAINING WITH EARLY STOPPING
 
 best_val_loss = float('inf')
 best_epoch = 0
@@ -159,10 +159,10 @@ for epoch in range(15):
         best_val_loss = avg_val_loss
         best_epoch = epoch + 1
         torch.save(model.state_dict(), "poselift_final_model.pth")
-        marker = " ★ BEST"
+        marker = " BEST"
     else:
         marker = ""
     
     print(f"Epoch {epoch+1}/15 | Train Loss: {avg_train_loss:.4f} | Val Loss: {avg_val_loss:.4f}{marker}")
 
-print(f"\n✅ Training complete. Best model saved from Epoch {best_epoch} (Val Loss: {best_val_loss:.4f})")
+print(f"\nTraining complete. Best model saved from Epoch {best_epoch} (Val Loss: {best_val_loss:.4f})")

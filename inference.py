@@ -122,4 +122,4 @@ while cap.isOpened():
 
 cap.release()
 out.release()
-print(f"✅ Done! Video saved as {OUTPUT_PATH}")
+print(f"Done! Video saved as {OUTPUT_PATH}")

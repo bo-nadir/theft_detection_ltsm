@@ -27,4 +27,4 @@ for filename in os.listdir(TRAIN_DIR):
     np.save(save_path, labels)
     count += 1
 
-print(f"✅ Created {count} label files in {GT_NORMAL_DIR}")
+print(f"Created {count} label files in {GT_NORMAL_DIR}")
